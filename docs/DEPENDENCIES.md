@@ -10,7 +10,7 @@ Versions below were checked against the npm registry directly (not from training
 
 | Tool | Pinned version | Notes |
 |---|---|---|
-| Node.js | **22.x (Active LTS)** | Do not use Node 24 yet for this project — newer major, less ecosystem-wide validation against the Expo/Firebase tooling below at time of writing. Re-evaluate only if a dependency here requires it. |
+| Node.js | **22.23.2 (Active LTS "Jod")** | Do not use Node 24 yet for this project — newer major, less ecosystem-wide validation against the Expo/Firebase tooling below at time of writing. Re-evaluate only if a dependency here requires it. Exact patch verified against `https://nodejs.org/dist/index.json` on 2026-08-21 for CI pinning (`.github/workflows/ci.yml`); re-check before bumping. |
 | npm | bundled with Node 22 | Use `npm ci` for installs from an existing lockfile; `npm install` only when intentionally adding/changing a dependency. |
 
 ## Mobile app (React Native / Expo)

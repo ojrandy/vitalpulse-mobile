@@ -12,12 +12,13 @@
 
 ## 2. Branching & PRs
 
-- `main` is always deployable. Never commit directly to `main`.
-- Branch naming: `feature/<short-desc>`, `fix/<short-desc>`, `security/<short-desc>`.
-- One PR per task on the Gantt chart where practical — keeps review small and traceable.
+- Two-tier branch model: `development` is the staging branch — all work lands there first. `main` is always deployable and only ever moves forward via a `development` → `main` promotion (merge/PR), never a direct push or commit.
+- Branch naming: `feature/<short-desc>`, `fix/<short-desc>`, `security/<short-desc>`, branched off `development`.
+- Open PRs against `development`, not `main`. One PR per task on the Gantt chart where practical — keeps review small and traceable.
 - **Every PR must pass CI before merge:** lint, typecheck, unit tests, and — for anything touching `firestore.rules` or a Cloud Function — the rules test suite. See `06-TESTING.md`.
 - PR description should link the Gantt task ID it corresponds to.
-- Squash-merge preferred, so `main` history reads as one commit per completed task.
+- Squash-merge preferred, so `development` history reads as one commit per completed task.
+- Promote `development` → `main` deliberately (e.g. at a milestone or before a deploy per `07-DEPLOYMENT.md`), via its own PR — not as a side effect of merging a feature branch.
 
 ## 3. Who owns what (task-split principle, not a hard wall)
 

@@ -1,0 +1,18 @@
+import type { ReactNode } from 'react';
+import { StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { colors, spacing } from '../theme';
+
+export function ScreenContainer({ children }: { children: ReactNode }) {
+  return <SafeAreaView style={styles.container}>{children}</SafeAreaView>;
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.surface.background,
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.lg,
+  },
+});

@@ -1,0 +1,129 @@
+{
+  "home": {
+    "greeting": "Bonjour / Hello",
+    "eligible": "Éligible pour donner",
+    "notEligible": "Pas encore éligible",
+    "lastDonation": "Dernier don le {{date}} · {{city}}",
+    "requestBlood": "Demander du sang",
+    "reportShortage": "Signaler une pénurie",
+    "matchedForYou": "Correspondances pour vous",
+    "seeAll": "Tout voir",
+    "filterAll": "Tout · {{count}}",
+    "filterCritical": "Critique",
+    "filterNearMe": "Près de moi",
+    "unitsNeeded": "{{count}} unités nécessaires",
+    "iCanHelp": "Je peux aider",
+    "minutesAgo": "il y a {{count}} min",
+    "hoursAgo": "il y a {{count}} h"
+  },
+  "requestBlood": {
+    "headerTitle": "Demander du sang",
+    "headerSubtitle": "Pour quelqu'un d'autre",
+    "stepPatient": "Patient",
+    "stepHospital": "Hôpital",
+    "stepReview": "Vérification",
+    "patientBloodType": "Groupe sanguin du patient",
+    "bloodTypeHint": "Pas sûr ? Un coordinateur peut confirmer avec le laboratoire de l'hôpital.",
+    "unitsNeeded": "Unités nécessaires",
+    "unitsSuffix": "unités",
+    "hospital": "Hôpital",
+    "hospitalPlaceholder": "Nom de l'hôpital",
+    "city": "Ville",
+    "cityPlaceholder": "Ville",
+    "urgency": "Urgence",
+    "urgencyCritical": "Critique",
+    "urgencyUrgent": "Urgent",
+    "urgencyRoutine": "Routine",
+    "context": "Contexte pour l'équipe soignante",
+    "contextPlaceholder": "Hémorragie post-partum, patiente stable mais chirurgie prévue demain matin.",
+    "reviewNotice": "Passe d'abord en vérification",
+    "reviewNoticeDetail": "Un coordinateur vérifie chaque demande avant qu'elle n'atteigne les donneurs.",
+    "reviewSummaryTitle": "Vérifiez votre demande",
+    "back": "Retour",
+    "continue": "Continuer",
+    "submit": "Envoyer la demande",
+    "successTitle": "Demande envoyée",
+    "successBody": "Un coordinateur l'examinera sous peu. Vous serez notifié dès son approbation."
+  },
+  "reportShortage": {
+    "headerTitle": "Signaler une pénurie",
+    "headerSubtitle": "Signalez un stock bas dans un hôpital",
+    "bloodType": "Groupe sanguin",
+    "city": "Ville",
+    "cityPlaceholder": "Ville",
+    "urgency": "Urgence",
+    "notes": "Détails supplémentaires",
+    "notesPlaceholder": "Qu'avez-vous remarqué, et où ?",
+    "submit": "Envoyer le signalement"
+  },
+  "requestDetail": {
+    "headerTitle": "Demande",
+    "unitsNeeded": "{{count}} unités nécessaires",
+    "status": "Statut",
+    "submitted": "Envoyée le {{date}}",
+    "rejectionReason": "Motif",
+    "iCanHelp": "Je peux aider"
+  },
+  "myRequests": {
+    "headerTitle": "Mes demandes",
+    "empty": "Vous n'avez pas encore envoyé de demande.",
+    "statusPendingReview": "En vérification",
+    "statusApproved": "Approuvée",
+    "statusRejected": "Rejetée",
+    "statusBroadcast": "Diffusée",
+    "statusFulfilled": "Satisfaite",
+    "statusExpired": "Expirée"
+  },
+  "donationHistory": {
+    "headerTitle": "Historique des dons",
+    "subtitle": "Tous vos dons effectués via VitalPulse",
+    "units": "{{count}} unité",
+    "units_other": "{{count}} unités",
+    "empty": "Aucun don enregistré pour le moment."
+  },
+  "donorId": {
+    "headerTitle": "Carte de donneur",
+    "headerSubtitle": "Carte d'identification numérique",
+    "country": "Cameroun",
+    "active": "Active",
+    "role": "Donneur",
+    "donorNumber": "Numéro de donneur",
+    "validThrough": "Valide jusqu'au",
+    "qrCaption": "Montrez ceci au comptoir de don",
+    "qrHint": "Luminosité de l'écran augmentée pour le scan",
+    "saveToWallet": "Enregistrer dans le portefeuille"
+  },
+  "badges": {
+    "headerTitle": "Badges et niveau",
+    "headerSubtitle": "Votre parcours de donneur jusqu'à présent",
+    "pointsLabel": "Points",
+    "tierLabel": "Niveau",
+    "earnedBadges": "Badges obtenus"
+  },
+  "notificationPreferences": {
+    "headerTitle": "Préférences de notification",
+    "headerSubtitle": "Choisissez comment nous vous contactons pour les demandes urgentes",
+    "whatsapp": "WhatsApp",
+    "sms": "SMS",
+    "email": "E-mail",
+    "push": "Notifications push",
+    "save": "Enregistrer les préférences"
+  },
+  "bloodCompatibility": {
+    "headerTitle": "Compatibilité des groupes sanguins",
+    "headerSubtitle": "À qui vous pouvez donner et de qui vous pouvez recevoir",
+    "canDonateTo": "Peut donner à",
+    "canReceiveFrom": "Peut recevoir de",
+    "universalDonor": "Donneur universel",
+    "universalRecipient": "Receveur universel"
+  },
+  "profile": {
+    "headerTitle": "Profil",
+    "donationHistory": "Historique des dons",
+    "badgesAndTier": "Badges et niveau",
+    "notificationPreferences": "Préférences de notification",
+    "bloodCompatibility": "Compatibilité des groupes sanguins",
+    "language": "Langue",
+    "signOut": "Se déconnecter"
+  }
+}

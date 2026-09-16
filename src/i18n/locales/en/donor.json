@@ -1,0 +1,129 @@
+{
+  "home": {
+    "greeting": "Bonjour / Hello",
+    "eligible": "Eligible to donate",
+    "notEligible": "Not eligible yet",
+    "lastDonation": "Last donation {{date}} · {{city}}",
+    "requestBlood": "Request blood",
+    "reportShortage": "Report shortage",
+    "matchedForYou": "Matched for you",
+    "seeAll": "See all",
+    "filterAll": "All · {{count}}",
+    "filterCritical": "Critical",
+    "filterNearMe": "Near me",
+    "unitsNeeded": "{{count}} units needed",
+    "iCanHelp": "I can help",
+    "minutesAgo": "{{count}} min ago",
+    "hoursAgo": "{{count}} h ago"
+  },
+  "requestBlood": {
+    "headerTitle": "Request blood",
+    "headerSubtitle": "For someone else",
+    "stepPatient": "Patient",
+    "stepHospital": "Hospital",
+    "stepReview": "Review",
+    "patientBloodType": "Patient blood type",
+    "bloodTypeHint": "Not sure? A coordinator can help confirm with the hospital lab.",
+    "unitsNeeded": "Units needed",
+    "unitsSuffix": "units",
+    "hospital": "Hospital",
+    "hospitalPlaceholder": "Hospital name",
+    "city": "City",
+    "cityPlaceholder": "City",
+    "urgency": "Urgency",
+    "urgencyCritical": "Critical",
+    "urgencyUrgent": "Urgent",
+    "urgencyRoutine": "Routine",
+    "context": "Context for the care team",
+    "contextPlaceholder": "Post-partum haemorrhage, patient stable but surgery planned tomorrow morning.",
+    "reviewNotice": "Goes to review first",
+    "reviewNoticeDetail": "A coordinator checks every request before it reaches donors.",
+    "reviewSummaryTitle": "Review your request",
+    "back": "Back",
+    "continue": "Continue",
+    "submit": "Submit request",
+    "successTitle": "Request submitted",
+    "successBody": "A coordinator will review it shortly. You'll be notified once it's approved."
+  },
+  "reportShortage": {
+    "headerTitle": "Report shortage",
+    "headerSubtitle": "Flag low stock at a hospital",
+    "bloodType": "Blood type",
+    "city": "City",
+    "cityPlaceholder": "City",
+    "urgency": "Urgency",
+    "notes": "Additional details",
+    "notesPlaceholder": "What did you notice, and where?",
+    "submit": "Submit report"
+  },
+  "requestDetail": {
+    "headerTitle": "Request",
+    "unitsNeeded": "{{count}} units needed",
+    "status": "Status",
+    "submitted": "Submitted {{date}}",
+    "rejectionReason": "Reason",
+    "iCanHelp": "I can help"
+  },
+  "myRequests": {
+    "headerTitle": "My requests",
+    "empty": "You haven't submitted a request yet.",
+    "statusPendingReview": "In review",
+    "statusApproved": "Approved",
+    "statusRejected": "Rejected",
+    "statusBroadcast": "Broadcast",
+    "statusFulfilled": "Fulfilled",
+    "statusExpired": "Expired"
+  },
+  "donationHistory": {
+    "headerTitle": "Donation history",
+    "subtitle": "Every donation you've made through VitalPulse",
+    "units": "{{count}} unit",
+    "units_other": "{{count}} units",
+    "empty": "No donations recorded yet."
+  },
+  "donorId": {
+    "headerTitle": "Donor ID",
+    "headerSubtitle": "Digital identification card",
+    "country": "Cameroon",
+    "active": "Active",
+    "role": "Donor",
+    "donorNumber": "Donor number",
+    "validThrough": "Valid through",
+    "qrCaption": "Show this at the donation desk",
+    "qrHint": "Screen brightness increased for scanning",
+    "saveToWallet": "Save to wallet"
+  },
+  "badges": {
+    "headerTitle": "Badges & tier",
+    "headerSubtitle": "Your donor journey so far",
+    "pointsLabel": "Points",
+    "tierLabel": "Tier",
+    "earnedBadges": "Earned badges"
+  },
+  "notificationPreferences": {
+    "headerTitle": "Notification preferences",
+    "headerSubtitle": "Choose how we reach you for urgent requests",
+    "whatsapp": "WhatsApp",
+    "sms": "SMS",
+    "email": "Email",
+    "push": "Push notifications",
+    "save": "Save preferences"
+  },
+  "bloodCompatibility": {
+    "headerTitle": "Blood type compatibility",
+    "headerSubtitle": "Who you can donate to and receive from",
+    "canDonateTo": "Can donate to",
+    "canReceiveFrom": "Can receive from",
+    "universalDonor": "Universal donor",
+    "universalRecipient": "Universal recipient"
+  },
+  "profile": {
+    "headerTitle": "Profile",
+    "donationHistory": "Donation history",
+    "badgesAndTier": "Badges & tier",
+    "notificationPreferences": "Notification preferences",
+    "bloodCompatibility": "Blood type compatibility",
+    "language": "Language",
+    "signOut": "Sign out"
+  }
+}

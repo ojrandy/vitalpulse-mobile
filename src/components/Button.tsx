@@ -1,4 +1,4 @@
-import { ActivityIndicator, Pressable, StyleSheet, type PressableProps } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, type PressableProps, type ViewStyle } from 'react-native';
 
 import { colors, fontFamily, radii, spacing } from '../theme';
 import { AppText } from './AppText';
@@ -7,6 +7,7 @@ interface ButtonProps extends Omit<PressableProps, 'style'> {
   label: string;
   variant?: 'primary' | 'secondary';
   loading?: boolean;
+  style?: ViewStyle;
 }
 
 export function Button({
@@ -14,6 +15,7 @@ export function Button({
   variant = 'primary',
   loading = false,
   disabled,
+  style,
   ...rest
 }: ButtonProps) {
   const isPrimary = variant === 'primary';
@@ -29,6 +31,7 @@ export function Button({
         isPrimary ? styles.primary : styles.secondary,
         isDisabled && styles.disabled,
         pressed && !isDisabled && styles.pressed,
+        style,
       ]}
       {...rest}
     >

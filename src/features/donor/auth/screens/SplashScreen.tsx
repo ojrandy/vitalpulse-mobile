@@ -12,7 +12,7 @@ export function SplashScreen() {
   const { t } = useTranslation('auth');
 
   useEffect(() => {
-    const timer = setTimeout(() => router.replace('/(auth)/onboarding'), AUTO_ADVANCE_MS);
+    const timer = setTimeout(() => router.replace('/(auth)/language'), AUTO_ADVANCE_MS);
     return () => clearTimeout(timer);
   }, []);
 

@@ -15,12 +15,12 @@ export const colors = {
     background: '#fffdfb',
     surface: '#ffffff',
     surfaceSunken: '#f9f6f3',
+    mutedSurface: '#f7f4f1',
     border: '#e6e2df',
   },
   text: {
     foreground: '#261b1a',
     mutedForeground: '#786d6a',
-    mutedSurface: '#f7f4f1',
   },
   status: {
     success: '#14764a',

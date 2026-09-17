@@ -1,0 +1,11 @@
+{
+  "name": "@vitalpulse/shared-schemas",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Zod schemas shared between the client app and Cloud Functions, per CLAUDE.md non-negotiable #8 (no parallel validation).",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "dependencies": {
+    "zod": "4.4.3"
+  }
+}

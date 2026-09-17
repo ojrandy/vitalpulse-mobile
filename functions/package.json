@@ -1,0 +1,30 @@
+{
+  "name": "vitalpulse-functions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloud Functions (2nd gen) for VitalPulse Mobile — all privileged writes, per docs/03DATAMODEL.md and docs/04SECURITY.md.",
+  "main": "lib/index.js",
+  "engines": {
+    "node": "22"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@vitalpulse/shared-schemas": "1.0.0",
+    "firebase-admin": "14.4.0",
+    "firebase-functions": "7.4.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/jest": "30.0.0",
+    "jest": "30.4.2",
+    "ts-jest": "29.4.12",
+    "typescript": "5.9.3"
+  }
+}

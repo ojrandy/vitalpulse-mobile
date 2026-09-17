@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,6 +7,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { AppText } from '../../../../components/AppText';
 import { Button } from '../../../../components/Button';
 import { ScreenContainer } from '../../../../components/ScreenContainer';
+import { VitalPulseMark } from '../../../../components/VitalPulseMark';
 import { setStoredLanguage } from '../../../../i18n/languagePreference';
 import type { SupportedLanguage } from '../../../../i18n';
 import { colors, radii, spacing } from '../../../../theme';
@@ -27,11 +29,12 @@ export function LanguageSelectScreen() {
 
   return (
     <ScreenContainer>
+      <VitalPulseMark />
       <View style={styles.header}>
         <AppText variant="titleM" style={styles.centered}>
           {t('languageSelect.title')}
         </AppText>
-        <AppText variant="bodyM" color={colors.text.mutedForeground} style={styles.centered}>
+        <AppText variant="titleM" style={styles.centered}>
           {t('languageSelect.titleSecondary')}
         </AppText>
       </View>
@@ -52,7 +55,9 @@ export function LanguageSelectScreen() {
                   {t(option.subtitleKey)}
                 </AppText>
               </View>
-              <View style={[styles.radio, isSelected && styles.radioSelected]} />
+              <View style={[styles.radio, isSelected && styles.radioSelected]}>
+                {isSelected ? <Ionicons name="checkmark" size={14} color={colors.surface.surface} /> : null}
+              </View>
             </Pressable>
           );
         })}
@@ -99,6 +104,8 @@ const styles = StyleSheet.create({
     borderRadius: radii.full,
     borderWidth: 2,
     borderColor: colors.surface.border,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   radioSelected: {
     borderColor: colors.brand.primary,

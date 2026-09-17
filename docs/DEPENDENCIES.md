@@ -58,10 +58,25 @@ Versions below were checked against the npm registry directly (not from training
 | Package                        | Pinned version | Notes                                                                                                            |
 | ------------------------------ | -------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `firebase`                     | **12.18.0**    | Client SDK (Auth, Firestore, FCM, etc.).                                                                         |
-| `firebase-admin`               | **14.3.0**     | Cloud Functions runtime.                                                                                         |
-| `firebase-functions`           | **7.3.2**      | 2nd-gen functions.                                                                                               |
-| `firebase-tools`               | **15.28.1**    | CLI — install globally (`npm install -g firebase-tools@15.28.1`), used for emulators, deploy, and rules testing. |
-| `@firebase/rules-unit-testing` | **5.0.2**      | Firestore rules test suite (`06-TESTING.md`).                                                                    |
+| `firebase-admin`               | **14.4.0**     | Cloud Functions runtime (`functions/package.json`). Re-verified against npm registry 2026-09-16 (was 14.3.0).    |
+| `firebase-functions`           | **7.4.0**      | 2nd-gen functions (`functions/package.json`). Re-verified 2026-09-16 (was 7.3.2).                                |
+| `firebase-tools`               | **15.30.1**    | CLI — install globally (`npm install -g firebase-tools@15.30.1`), used for emulators, deploy, and rules testing. Re-verified 2026-09-16 (was 15.28.1); local dev machine had 15.25.1 at time of writing — bump when convenient, not a hard blocker. |
+| `@firebase/rules-unit-testing` | **5.0.2**      | Firestore rules test suite (`06-TESTING.md`), root devDependency. Unchanged.                                     |
+
+### Cloud Functions monorepo (added 2026-09-16 — backend phase start)
+
+`functions/` and `packages/shared-schemas/` are npm workspaces (root `package.json` `"workspaces": ["packages/*", "functions"]`) — installed via a single root `npm install`, not a separate install inside `functions/`.
+
+| Package                      | Pinned version                   | Notes                                                                                                                                                                     |
+| ----------------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@vitalpulse/shared-schemas` | **1.0.0** (internal, not on npm) | Workspace package, not published — the same Zod schemas the client forms and `functions/src/*.ts` both import (CLAUDE.md non-negotiable #8). See `packages/shared-schemas/`. |
+| `typescript` (functions)     | **5.9.3**                        | Matches the root app's pin.                                                                                                                                              |
+| `ts-jest` (functions + root) | **29.4.12**                      | Checked against npm registry 2026-09-16. Used for both `functions/test/**` and `tests/rules/**` (rules tests run from the root, via `npm run test:rules`).              |
+| `jest` (functions)           | **30.4.2**                       | Functions has its own `jest` major (30.x) independent of the root app's 29.7.0 — separate workspace, separate lockstep, no conflict.                                    |
+| `@types/jest` (functions)    | **30.0.0**                       | Matches functions' own `jest` major.                                                                                                                                     |
+| `typescript-eslint`          | **8.70.0**                       | Root devDependency, used by `functions/eslint.config.js` (functions/packages are excluded from the root Expo ESLint config since RN rules don't apply there — see `eslint.config.js`). |
+
+**Explicitly *not* installed:** `firebase-functions-test` — its 3.5.0 peer range (`firebase-admin` ^8–^13) doesn't yet cover `firebase-admin` 14.x, a real `npm install` conflict confirmed 2026-09-16. Not needed anyway: firebase-functions v2's `onCall`/`onDocumentUpdated` exports both expose a `.run()` method built for exactly this kind of unit testing (see `functions/test/*.test.ts`), so no separate test-wrapper package is required. Revisit if `firebase-functions-test` publishes a `firebase-admin` 14.x-compatible release.
 
 ## Notification channel integrations (Cloud Functions side)
 

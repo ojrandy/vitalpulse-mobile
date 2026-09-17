@@ -1,0 +1,39 @@
+{
+  "inventory": {
+    "headerTitle": "Inventory",
+    "headerSubtitle": "Blood stock by type",
+    "lowStock": "Low stock",
+    "unitsAvailable": "{{count}} unit available",
+    "unitsAvailable_other": "{{count}} units available",
+    "batches": "{{count}} batch",
+    "batches_other": "{{count}} batches",
+    "thresholdLabel": "Threshold {{count}}",
+    "waitingTest": "{{count}} awaiting lab result",
+    "empty": "No inventory recorded yet."
+  },
+  "inventoryDetail": {
+    "headerTitle": "{{bloodType}} inventory",
+    "batchesTitle": "Batches",
+    "unitsInBatch": "{{count}} unit",
+    "unitsInBatch_other": "{{count}} units",
+    "collected": "Collected {{date}}",
+    "statusWaitingTest": "Awaiting lab result",
+    "statusCleared": "Cleared",
+    "statusRejected": "Rejected",
+    "markCleared": "Mark cleared",
+    "markRejected": "Mark rejected",
+    "addStock": "Add stock",
+    "deductStock": "Deduct stock",
+    "unitsToAdd": "Units to add",
+    "unitsToDeduct": "Units to deduct",
+    "confirmAdd": "Confirm addition",
+    "confirmDeduct": "Confirm deduction",
+    "updated": "Inventory updated"
+  },
+  "profile": {
+    "headerTitle": "Hospital",
+    "hospitalId": "Hospital ID",
+    "role": "Hospital staff",
+    "signOut": "Sign out"
+  }
+}

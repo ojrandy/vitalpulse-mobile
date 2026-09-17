@@ -1,29 +1,8 @@
-import { z } from 'zod';
-
-import { bloodTypeEnum } from './profileSchema';
-
 /**
- * Matches the `broadcasts/{id}` contract in docs/03DATAMODEL.md exactly —
- * this is the PHI-minimized public payload a donor sees, never the
- * `requests` document. Read-only on the client; written only by the
- * `broadcastRequest` Cloud Function.
+ * Re-exports the shared contract from `@vitalpulse/shared-schemas` — the
+ * same schema `functions/src/broadcastRequest.ts` builds against server-side
+ * (CLAUDE.md non-negotiable #8). Do not redefine here; edit
+ * `packages/shared-schemas/src/broadcast.ts` instead.
  */
-export const urgencyEnum = z.enum(['routine', 'urgent', 'critical']);
-
-export const broadcastSchema = z.object({
-  id: z.string(),
-  requestId: z.string(),
-  bloodType: bloodTypeEnum,
-  city: z.string(),
-  hospitalName: z.string(),
-  urgency: urgencyEnum,
-  unitsNeeded: z.number().int().positive(),
-  // NOT in docs/03DATAMODEL.md's broadcasts contract yet — the Figma Home
-  // screen shows a distance ("3.2 km away") that would need to be computed
-  // from the donor's `geo` and the hospital's location. Flagging per
-  // CLAUDE.md rather than inventing a stored field; UI-only/optional until
-  // that's proposed and added to the data model.
-  distanceKm: z.number().nonnegative().optional(),
-  createdAt: z.string(),
-});
-export type Broadcast = z.infer<typeof broadcastSchema>;
+export { urgencyEnum, broadcastSchema } from '@vitalpulse/shared-schemas/src/broadcast';
+export type { Urgency, Broadcast } from '@vitalpulse/shared-schemas/src/broadcast';

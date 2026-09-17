@@ -12,11 +12,21 @@ export const mockDonorProfile = {
   name: 'Estelle Ngo Bakang',
   city: 'Douala',
   bloodType: 'O-' as const,
+  // `bloodTypeSource: 'lab_confirmed'` is also what the Profile/Donation
+  // History screens' "Verified donor" badge is keyed on — there is no
+  // separate `isVerified` field for donors in docs/03DATAMODEL.md (that
+  // field is documented as hospital-account-only), so "verified" here means
+  // exactly what CLAUDE.md non-negotiable #7 asks to surface: a lab-confirmed
+  // blood type, not a self-report.
   bloodTypeSource: 'lab_confirmed' as const,
   lastDonationDate: '2026-04-12',
+  memberSince: '2023-01-01',
+  nextEligibleDate: '2026-06-07',
   isEligible: true,
-  points: 480,
-  tier: 'Silver',
+  points: 1240,
+  tier: 'Gold',
+  totalDonations: 7,
+  livesImpacted: 21,
   badges: ['First donation', '3-time donor', 'Rapid responder'],
 };
 

@@ -6,6 +6,7 @@ import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { AppText } from '../../../../components/AppText';
 import { Card } from '../../../../components/Card';
 import { IconCircle } from '../../../../components/IconCircle';
+import { Pill } from '../../../../components/Pill';
 import { ScreenContainer } from '../../../../components/ScreenContainer';
 import { mockDonorProfile } from '../../../../data/mockDonorData';
 import { useAuthStore } from '../../../../stores/authStore';
@@ -21,6 +22,7 @@ const NAV_ITEMS: { key: string; icon: keyof typeof Ionicons.glyphMap; href: stri
 export function ProfileScreen() {
   const { t } = useTranslation('donor');
   const signOut = useAuthStore((state) => state.signOut);
+  const isVerified = mockDonorProfile.bloodTypeSource === 'lab_confirmed';
 
   return (
     <ScreenContainer>
@@ -29,19 +31,30 @@ export function ProfileScreen() {
       </View>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         <Card style={styles.profileCard}>
-          <View style={styles.avatar}>
-            <AppText variant="titleM" color={colors.brand.primaryDeep}>
-              {mockDonorProfile.name
-                .split(' ')
-                .map((p) => p[0])
-                .slice(0, 2)
-                .join('')}
-            </AppText>
+          <View style={styles.profileTopRow}>
+            <View style={styles.avatar}>
+              <AppText variant="titleM" color={colors.brand.primaryDeep}>
+                {mockDonorProfile.name
+                  .split(' ')
+                  .map((p) => p[0])
+                  .slice(0, 2)
+                  .join('')}
+              </AppText>
+            </View>
+            <View style={styles.profileText}>
+              <AppText variant="screenTitle">{mockDonorProfile.name}</AppText>
+              <AppText variant="bodyS" color={colors.text.mutedForeground}>
+                {mockDonorProfile.bloodType} · {mockDonorProfile.city} · {mockDonorProfile.tier} donor
+              </AppText>
+            </View>
+            {isVerified ? <Pill label={t('profile.verifiedDonor')} tone="success" /> : null}
           </View>
-          <View style={styles.profileText}>
-            <AppText variant="screenTitle">{mockDonorProfile.name}</AppText>
-            <AppText variant="bodyS" color={colors.text.mutedForeground}>
-              {mockDonorProfile.city} · {mockDonorProfile.bloodType}
+          <View style={styles.statRow}>
+            <AppText variant="numeric" color={colors.brand.primary}>
+              {mockDonorProfile.totalDonations}
+            </AppText>
+            <AppText variant="caption" color={colors.text.mutedForeground}>
+              {t('profile.donationsStatLabel')}
             </AppText>
           </View>
         </Card>
@@ -79,6 +92,9 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   profileCard: {
+    gap: spacing.sm,
+  },
+  profileTopRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
@@ -93,6 +109,14 @@ const styles = StyleSheet.create({
   },
   profileText: {
     flex: 1,
+  },
+  statRow: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    gap: spacing['2xs'],
+    borderTopWidth: 1,
+    borderTopColor: colors.surface.border,
+    paddingTop: spacing.sm,
   },
   navRow: {
     flexDirection: 'row',

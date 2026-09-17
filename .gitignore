@@ -33,6 +33,17 @@ yarn-error.*
 # local env files
 .env*.local
 
+# Firebase project binding — created locally once task 2 (fresh Firebase
+# project setup, docs/PROJECTTRACKER.md) lands; see .firebaserc.example.
+.firebaserc
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Cloud Functions build output
+functions/lib/
+functions/node_modules/
+
 # typescript
 *.tsbuildinfo
 

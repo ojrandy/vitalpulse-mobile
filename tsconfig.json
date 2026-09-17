@@ -2,5 +2,9 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true
-  }
+  },
+  // functions/ and packages/* are separate Node/TS projects, each with
+  // their own tsconfig.json and `npm run typecheck` — not part of the
+  // Expo/RN app's type-check.
+  "exclude": ["functions", "packages", "node_modules"]
 }

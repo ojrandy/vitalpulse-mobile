@@ -66,6 +66,10 @@
   },
   "myRequests": {
     "headerTitle": "My requests",
+    "headerSubtitle": "Requests you've submitted",
+    "filterAll": "All",
+    "filterInReview": "In review",
+    "filterActive": "Active",
     "empty": "You haven't submitted a request yet.",
     "statusPendingReview": "In review",
     "statusApproved": "Approved",
@@ -77,6 +81,9 @@
   "donationHistory": {
     "headerTitle": "Donation history",
     "subtitle": "Every donation you've made through VitalPulse",
+    "statsLine": "{{count}} donations · {{lives}} lives potentially saved",
+    "memberSince": "Member since {{date}}",
+    "nextEligible": "Next eligible: {{date}}",
     "units": "{{count}} unit",
     "units_other": "{{count}} units",
     "empty": "No donations recorded yet."
@@ -98,12 +105,15 @@
     "headerSubtitle": "Your donor journey so far",
     "pointsLabel": "Points",
     "tierLabel": "Tier",
+    "tierOfTotal": "Tier {{rank}} of {{total}}",
     "earnedBadges": "Earned badges"
   },
   "notificationPreferences": {
     "headerTitle": "Notification preferences",
     "headerSubtitle": "Choose how we reach you for urgent requests",
+    "channelsSectionLabel": "Channels",
     "whatsapp": "WhatsApp",
+    "whatsappHint": "Fastest delivery, recommended",
     "sms": "SMS",
     "email": "Email",
     "push": "Push notifications",
@@ -119,6 +129,8 @@
   },
   "profile": {
     "headerTitle": "Profile",
+    "verifiedDonor": "Verified donor",
+    "donationsStatLabel": "Donations",
     "donationHistory": "Donation history",
     "badgesAndTier": "Badges & tier",
     "notificationPreferences": "Notification preferences",

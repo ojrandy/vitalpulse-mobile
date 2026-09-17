@@ -1,0 +1,39 @@
+{
+  "inventory": {
+    "headerTitle": "Inventaire",
+    "headerSubtitle": "Stock de sang par groupe",
+    "lowStock": "Stock faible",
+    "unitsAvailable": "{{count}} unité disponible",
+    "unitsAvailable_other": "{{count}} unités disponibles",
+    "batches": "{{count}} lot",
+    "batches_other": "{{count}} lots",
+    "thresholdLabel": "Seuil {{count}}",
+    "waitingTest": "{{count}} en attente de résultat labo",
+    "empty": "Aucun inventaire enregistré pour l'instant."
+  },
+  "inventoryDetail": {
+    "headerTitle": "Inventaire {{bloodType}}",
+    "batchesTitle": "Lots",
+    "unitsInBatch": "{{count}} unité",
+    "unitsInBatch_other": "{{count}} unités",
+    "collected": "Collecté le {{date}}",
+    "statusWaitingTest": "En attente de résultat labo",
+    "statusCleared": "Validé",
+    "statusRejected": "Rejeté",
+    "markCleared": "Marquer comme validé",
+    "markRejected": "Marquer comme rejeté",
+    "addStock": "Ajouter du stock",
+    "deductStock": "Retirer du stock",
+    "unitsToAdd": "Unités à ajouter",
+    "unitsToDeduct": "Unités à retirer",
+    "confirmAdd": "Confirmer l'ajout",
+    "confirmDeduct": "Confirmer le retrait",
+    "updated": "Inventaire mis à jour"
+  },
+  "profile": {
+    "headerTitle": "Hôpital",
+    "hospitalId": "ID de l'hôpital",
+    "role": "Personnel hospitalier",
+    "signOut": "Se déconnecter"
+  }
+}

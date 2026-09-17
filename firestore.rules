@@ -2,9 +2,117 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Each signed-in user can read/write only their own user document.
+
+    // --- Shared helpers (docs/04SECURITY.md §3-4) ---------------------------
+    // Authority lives only in the custom-claims token, never a Firestore
+    // field. `.get(key, default)` is required on every claim read: a
+    // freshly-provisioned account with no claims yet is the default state of
+    // a brand-new user, not an edge case — direct field access
+    // (`token.role`) throws a hard evaluation error for that account.
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function role() {
+      return request.auth.token.get('role', null);
+    }
+
+    function hospitalId() {
+      return request.auth.token.get('hospitalId', null);
+    }
+
+    function isSuspended() {
+      return request.auth.token.get('suspended', false);
+    }
+
+    // `signedIn()` alone is never sufficient (docs/04SECURITY.md §4) — every
+    // collection gates on `hasRole`, which also rejects a claims-less or
+    // suspended account.
+    function hasRole(allowed) {
+      return signedIn() && !isSuspended() && role() in allowed;
+    }
+
+    function isOwnHospital(hid) {
+      return hospitalId() == hid;
+    }
+
+    // --- users/{uid} ----------------------------------------------------
     match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read: if signedIn() && (request.auth.uid == userId || hasRole(['system_admin']));
+
+      // Self-signup only ever creates a plain donor doc — hospital/admin
+      // accounts are provisioned via grantRole (Cloud Function), never a
+      // direct client create.
+      allow create: if signedIn() && request.auth.uid == userId
+        && request.resource.data.role == 'donor'
+        && request.resource.data.bloodTypeSource != 'lab_confirmed';
+
+      // Client-writable fields only (docs/03DATAMODEL.md): notificationPrefs,
+      // city, geo, display fields, and a self-reported bloodType/Source that
+      // is never `lab_confirmed` (mirrors profileSetupSchema's own
+      // exclusion — `lab_confirmed` is set exclusively by resolveLabTest).
+      // role/isVerified/isSuspended/points/tier/badges are
+      // Cloud-Functions-only and must not change on a self-write.
+      allow update: if signedIn() && request.auth.uid == userId
+        && request.resource.data.bloodTypeSource != 'lab_confirmed'
+        && request.resource.data.role == resource.data.role
+        && request.resource.data.get('isVerified', false) == resource.data.get('isVerified', false)
+        && request.resource.data.get('isSuspended', false) == resource.data.get('isSuspended', false)
+        && request.resource.data.get('points', 0) == resource.data.get('points', 0)
+        && request.resource.data.get('tier', null) == resource.data.get('tier', null)
+        && request.resource.data.get('badges', []) == resource.data.get('badges', []);
+
+      allow delete: if false;
+    }
+
+    // --- requests/{id} ----------------------------------------------------
+    // Writable only via submitRequest/reviewRequest (Cloud Functions) —
+    // never a direct client write (docs/03DATAMODEL.md).
+    match /requests/{requestId} {
+      allow read: if hasRole(['system_admin'])
+        || (hasRole(['donor']) && resource.data.submittedBy == request.auth.uid)
+        // NOTE: `requests.hospitalId` is currently free-text (no hospital
+        // directory/picker exists yet — see requestSchemas.ts), so this
+        // hospital-scoped read won't actually match real hospital accounts
+        // until hospitalId becomes a real FK. Left in per the documented
+        // contract intent rather than silently dropped.
+        || (hasRole(['hospital_staff', 'hospital_admin']) && isOwnHospital(resource.data.hospitalId));
+      allow write: if false;
+    }
+
+    // --- broadcasts/{id} ----------------------------------------------------
+    // PHI-minimized public payload — read-only, Cloud-Functions-only write
+    // (broadcastRequest). Every authenticated role may read (this is the
+    // list donors act on; hospital/admin roles need it for context).
+    match /broadcasts/{broadcastId} {
+      allow read: if hasRole(['donor', 'hospital_staff', 'lab_tech', 'hospital_admin', 'system_admin']);
+      allow write: if false;
+    }
+
+    // --- notification_log/{id} ---------------------------------------------
+    match /notification_log/{logId} {
+      allow read: if hasRole(['system_admin'])
+        || (hasRole(['donor']) && resource.data.donorId == request.auth.uid);
+      allow write: if false;
+    }
+
+    // --- inventory/{hospitalId}_{bloodType} ---------------------------------
+    // Hospital-internal stock data — not donor-facing (no donor-facing
+    // inventory screen exists). Cloud-Functions-only write
+    // (addInventoryStock/deductInventoryStock/resolveLabTest).
+    match /inventory/{inventoryId} {
+      allow read: if hasRole(['system_admin'])
+        || (hasRole(['hospital_staff', 'lab_tech', 'hospital_admin']) && isOwnHospital(resource.data.hospitalId));
+      allow write: if false;
+    }
+
+    // --- auditLogs/{id} ---------------------------------------------------
+    // No role may write this directly — only the writeAudit() helper inside
+    // privileged Cloud Functions (docs/04SECURITY.md §2).
+    match /auditLogs/{logId} {
+      allow read: if hasRole(['system_admin']);
+      allow write: if false;
     }
 
     // Deny everything else by default until a collection's rules are defined.

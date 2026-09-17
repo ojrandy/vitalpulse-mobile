@@ -10,8 +10,11 @@ import { ScreenHeader } from '../../../../components/ScreenHeader';
 import { mockDonorProfile } from '../../../../data/mockDonorData';
 import { colors, radii, spacing } from '../../../../theme';
 
+const DONOR_TIERS = ['Bronze', 'Silver', 'Gold', 'Platinum'];
+
 export function BadgesScreen() {
   const { t } = useTranslation('donor');
+  const tierRank = DONOR_TIERS.indexOf(mockDonorProfile.tier) + 1;
 
   return (
     <ScreenContainer>
@@ -29,7 +32,7 @@ export function BadgesScreen() {
           <Card style={styles.statCard}>
             <AppText variant="titleM">{mockDonorProfile.tier}</AppText>
             <AppText variant="bodyS" color={colors.text.mutedForeground}>
-              {t('badges.tierLabel')}
+              {tierRank > 0 ? t('badges.tierOfTotal', { rank: tierRank, total: DONOR_TIERS.length }) : t('badges.tierLabel')}
             </AppText>
           </Card>
         </View>

@@ -66,6 +66,10 @@
   },
   "myRequests": {
     "headerTitle": "Mes demandes",
+    "headerSubtitle": "Demandes que vous avez envoyées",
+    "filterAll": "Toutes",
+    "filterInReview": "En vérification",
+    "filterActive": "Actives",
     "empty": "Vous n'avez pas encore envoyé de demande.",
     "statusPendingReview": "En vérification",
     "statusApproved": "Approuvée",
@@ -77,6 +81,9 @@
   "donationHistory": {
     "headerTitle": "Historique des dons",
     "subtitle": "Tous vos dons effectués via VitalPulse",
+    "statsLine": "{{count}} dons · {{lives}} vies potentiellement sauvées",
+    "memberSince": "Membre depuis {{date}}",
+    "nextEligible": "Prochaine éligibilité : {{date}}",
     "units": "{{count}} unité",
     "units_other": "{{count}} unités",
     "empty": "Aucun don enregistré pour le moment."
@@ -98,12 +105,15 @@
     "headerSubtitle": "Votre parcours de donneur jusqu'à présent",
     "pointsLabel": "Points",
     "tierLabel": "Niveau",
+    "tierOfTotal": "Niveau {{rank}} sur {{total}}",
     "earnedBadges": "Badges obtenus"
   },
   "notificationPreferences": {
     "headerTitle": "Préférences de notification",
     "headerSubtitle": "Choisissez comment nous vous contactons pour les demandes urgentes",
+    "channelsSectionLabel": "Canaux",
     "whatsapp": "WhatsApp",
+    "whatsappHint": "Livraison la plus rapide, recommandé",
     "sms": "SMS",
     "email": "E-mail",
     "push": "Notifications push",
@@ -119,6 +129,8 @@
   },
   "profile": {
     "headerTitle": "Profil",
+    "verifiedDonor": "Donneur vérifié",
+    "donationsStatLabel": "Dons",
     "donationHistory": "Historique des dons",
     "badgesAndTier": "Badges et niveau",
     "notificationPreferences": "Préférences de notification",

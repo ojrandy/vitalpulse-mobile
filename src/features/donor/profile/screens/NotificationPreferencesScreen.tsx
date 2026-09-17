@@ -36,13 +36,21 @@ export function NotificationPreferencesScreen() {
   return (
     <ScreenContainer>
       <ScreenHeader title={t('notificationPreferences.headerTitle')} subtitle={t('notificationPreferences.headerSubtitle')} />
+      <AppText variant="sectionLabel" color={colors.text.mutedForeground} style={styles.sectionLabel}>
+        {t('notificationPreferences.channelsSectionLabel')}
+      </AppText>
       <Card style={styles.card}>
         {CHANNELS.map(({ key, icon }) => (
           <View key={key} style={styles.row}>
             <IconCircle name={icon} background={colors.surface.mutedSurface} color={colors.text.foreground} />
-            <AppText variant="bodyM" style={styles.label}>
-              {t(`notificationPreferences.${key}`)}
-            </AppText>
+            <View style={styles.label}>
+              <AppText variant="bodyM">{t(`notificationPreferences.${key}`)}</AppText>
+              {key === 'whatsapp' ? (
+                <AppText variant="caption" color={colors.text.mutedForeground}>
+                  {t('notificationPreferences.whatsappHint')}
+                </AppText>
+              ) : null}
+            </View>
             <Switch
               value={prefs[key]}
               onValueChange={(value) => setPrefs((prev) => ({ ...prev, [key]: value }))}
@@ -57,6 +65,9 @@ export function NotificationPreferencesScreen() {
 }
 
 const styles = StyleSheet.create({
+  sectionLabel: {
+    marginBottom: spacing.sm,
+  },
   card: {
     gap: spacing.md,
     marginBottom: spacing.lg,

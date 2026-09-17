@@ -4,17 +4,36 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import { AppText } from '../../../../components/AppText';
 import { Card } from '../../../../components/Card';
 import { IconCircle } from '../../../../components/IconCircle';
+import { Pill } from '../../../../components/Pill';
 import { ScreenContainer } from '../../../../components/ScreenContainer';
 import { ScreenHeader } from '../../../../components/ScreenHeader';
-import { mockDonationHistory } from '../../../../data/mockDonorData';
+import { mockDonationHistory, mockDonorProfile } from '../../../../data/mockDonorData';
 import { colors, spacing } from '../../../../theme';
 
 export function DonationHistoryScreen() {
   const { t } = useTranslation('donor');
+  const isVerified = mockDonorProfile.bloodTypeSource === 'lab_confirmed';
 
   return (
     <ScreenContainer>
       <ScreenHeader title={t('donationHistory.headerTitle')} subtitle={t('donationHistory.subtitle')} />
+      <Card style={styles.statsCard}>
+        <View style={styles.statsTopRow}>
+          <AppText variant="bodyM" style={styles.bold}>
+            {t('donationHistory.statsLine', {
+              count: mockDonorProfile.totalDonations,
+              lives: mockDonorProfile.livesImpacted,
+            })}
+          </AppText>
+          {isVerified ? <Pill label={t('profile.verifiedDonor')} tone="success" /> : null}
+        </View>
+        <AppText variant="caption" color={colors.text.mutedForeground}>
+          {t('donationHistory.memberSince', { date: new Date(mockDonorProfile.memberSince).toLocaleDateString() })}
+        </AppText>
+        <AppText variant="caption" color={colors.text.mutedForeground}>
+          {t('donationHistory.nextEligible', { date: new Date(mockDonorProfile.nextEligibleDate).toLocaleDateString() })}
+        </AppText>
+      </Card>
       <FlatList
         data={mockDonationHistory}
         keyExtractor={(item) => item.id}
@@ -47,6 +66,18 @@ export function DonationHistoryScreen() {
 }
 
 const styles = StyleSheet.create({
+  statsCard: {
+    marginBottom: spacing.md,
+    gap: spacing['2xs'],
+  },
+  statsTopRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  bold: {
+    fontWeight: '700',
+  },
   listContent: {
     paddingBottom: spacing.xl,
   },
@@ -58,8 +89,5 @@ const styles = StyleSheet.create({
   },
   textGroup: {
     flex: 1,
-  },
-  bold: {
-    fontWeight: '700',
   },
 });

@@ -1,0 +1,44 @@
+{
+  "reviewQueue": {
+    "headerTitle": "Review queue",
+    "headerSubtitle": "Requests awaiting a decision",
+    "empty": "Nothing waiting on review.",
+    "statusPendingReview": "Pending review",
+    "statusApproved": "Approved",
+    "statusRejected": "Rejected",
+    "statusBroadcast": "Broadcast",
+    "statusFulfilled": "Fulfilled",
+    "statusExpired": "Expired",
+    "unitsNeeded": "{{count}} units needed"
+  },
+  "requestDetail": {
+    "headerTitle": "Review request",
+    "patientContext": "Context for review",
+    "submittedBy": "Submitted by {{uid}}",
+    "reviewedBy": "Reviewed by {{uid}} on {{date}}",
+    "approve": "Approve",
+    "reject": "Reject",
+    "rejectionReasonLabel": "Reason for rejection",
+    "rejectionReasonPlaceholder": "Shown back to the person who submitted this request.",
+    "rejectionReasonRequired": "A reason is required to reject a request.",
+    "confirmApprove": "Approving this request broadcasts it to matching donors immediately.",
+    "approved": "Request approved and broadcast triggered",
+    "rejected": "Request rejected"
+  },
+  "activityLog": {
+    "headerTitle": "Activity log",
+    "headerSubtitle": "Every privileged action, audited",
+    "empty": "No activity recorded yet.",
+    "actionRequestApproved": "Approved request {{targetId}}",
+    "actionRequestRejected": "Rejected request {{targetId}}",
+    "actionBroadcastSent": "Broadcast sent for request {{targetId}}",
+    "actionRoleGranted": "Granted a role to {{targetId}}",
+    "actionRoleRevoked": "Revoked a role from {{targetId}}",
+    "actionUserSuspended": "Suspended user {{targetId}}"
+  },
+  "profile": {
+    "headerTitle": "Admin",
+    "role": "System admin",
+    "signOut": "Sign out"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "reviewQueue": {
+    "headerTitle": "File de vérification",
+    "headerSubtitle": "Demandes en attente d'une décision",
+    "empty": "Rien n'attend de vérification.",
+    "statusPendingReview": "En attente de vérification",
+    "statusApproved": "Approuvée",
+    "statusRejected": "Rejetée",
+    "statusBroadcast": "Diffusée",
+    "statusFulfilled": "Satisfaite",
+    "statusExpired": "Expirée",
+    "unitsNeeded": "{{count}} unités nécessaires"
+  },
+  "requestDetail": {
+    "headerTitle": "Vérifier la demande",
+    "patientContext": "Contexte pour la vérification",
+    "submittedBy": "Soumis par {{uid}}",
+    "reviewedBy": "Vérifié par {{uid}} le {{date}}",
+    "approve": "Approuver",
+    "reject": "Rejeter",
+    "rejectionReasonLabel": "Motif du rejet",
+    "rejectionReasonPlaceholder": "Affiché à la personne qui a soumis cette demande.",
+    "rejectionReasonRequired": "Un motif est requis pour rejeter une demande.",
+    "confirmApprove": "Approuver cette demande la diffuse immédiatement aux donneurs correspondants.",
+    "approved": "Demande approuvée, diffusion déclenchée",
+    "rejected": "Demande rejetée"
+  },
+  "activityLog": {
+    "headerTitle": "Journal d'activité",
+    "headerSubtitle": "Chaque action privilégiée, auditée",
+    "empty": "Aucune activité enregistrée pour l'instant.",
+    "actionRequestApproved": "Demande {{targetId}} approuvée",
+    "actionRequestRejected": "Demande {{targetId}} rejetée",
+    "actionBroadcastSent": "Diffusion envoyée pour la demande {{targetId}}",
+    "actionRoleGranted": "Rôle accordé à {{targetId}}",
+    "actionRoleRevoked": "Rôle retiré à {{targetId}}",
+    "actionUserSuspended": "Utilisateur {{targetId}} suspendu"
+  },
+  "profile": {
+    "headerTitle": "Admin",
+    "role": "Administrateur système",
+    "signOut": "Se déconnecter"
+  }
+}

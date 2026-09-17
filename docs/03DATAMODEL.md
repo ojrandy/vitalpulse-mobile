@@ -22,7 +22,7 @@ This is the contract between Randy's backend work and Mai's UI work — if a fie
 | `points`, `tier`, `badges[]` | number / string / array                                             | Engagement/gamification, Cloud-Functions-only write (server computes on donation completion).          |
 | `createdAt`, `updatedAt`     | timestamp                                                           |                                                                                                        |
 
-**Client-writable by the owning user:** `notificationPrefs`, `city`, `geo`, and profile display fields (name, photo). Everything else listed above is Cloud-Functions-only.
+**Client-writable by the owning user:** `notificationPrefs`, `city`, `geo`, profile display fields (name, photo), and — added 2026-09-16 when the backend phase started — `bloodType`/`bloodTypeSource` **as a direct write, but only when the new `bloodTypeSource` is `self_reported` or `unknown`, never `lab_confirmed`.** This was an implicit gap in the original contract: `profileSetupSchema` already excluded `lab_confirmed` client-side, but nothing here said whether the profile-setup write itself was direct-to-Firestore or Cloud-Functions-only. Resolved as a direct write, enforced identically in `firestore.rules` (`users/{userId}` create/update rules re-check `bloodTypeSource != 'lab_confirmed'` server-side, not just client-side) — simpler than adding a dedicated Cloud Function for a field a donor is meant to self-report, while keeping the actual trust boundary (`lab_confirmed` is exclusively `resolveLabTest`'s to set) enforced in rules, not just in a form. Everything else listed above is Cloud-Functions-only.
 
 ### `requests/{id}`
 
@@ -109,7 +109,9 @@ Written only by the `writeAudit` helper, called from every privileged Cloud Func
 | `resolveLabTest`                             | `{ hospitalId, bloodType, batchId, result: 'cleared'\|'rejected' }`                    | `{ status }`                          | `lab_tech`, `hospital_admin`, `system_admin`                                                |
 | `grantRole` / `revokeRole`                   | `{ targetUid, role, hospitalId? }`                                                     | `{ status }`                          | `system_admin` (hospital_admin scoped to their own hospital + hospital_staff/lab_tech only) |
 
-All inputs are Zod-validated server-side before anything touches Firestore. Client-side form validation (React Hook Form + Zod) should use **the same schema**, imported from a shared package, so validation never drifts between client and server.
+All inputs are Zod-validated server-side before anything touches Firestore, importing the same schema client forms use from `packages/shared-schemas` (`@vitalpulse/shared-schemas`) — see `functions/src/*.ts` and `src/schemas/*.ts` (thin re-exports of the shared package, kept at their original paths so existing client imports didn't need to change).
+
+**Known contract gap, flagged not silently built (2026-09-16):** `users.isSuspended` is documented above as Cloud-Functions-only, and `docs/04SECURITY.md` §10 assumes a suspend/unsuspend action exists, but no `suspendUser`/`unsuspendUser` function is in this table. `grantRole`/`revokeRole` (implemented in `functions/src/roles.ts`) do not touch `isSuspended`. Needs a decision — likely a small dedicated `system_admin`-only function — before Week 4's "Suspend an account" manual QA case (`06-TESTING.md` §7) can actually be exercised.
 
 ## Request state machine (§3)
 

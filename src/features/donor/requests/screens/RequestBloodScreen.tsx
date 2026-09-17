@@ -70,7 +70,7 @@ export function RequestBloodScreen() {
     setSubmitting(true);
     try {
       await requestService.submitRequest(input);
-      router.replace('/(donor)/requests');
+      router.replace('/(donor)/(tabs)/requests');
     } finally {
       setSubmitting(false);
     }

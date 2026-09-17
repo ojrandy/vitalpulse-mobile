@@ -1,46 +1,12 @@
-import { Ionicons } from '@expo/vector-icons';
-import { Tabs } from 'expo-router';
+import { Stack } from 'expo-router';
 
-import { colors } from '../../src/theme';
-
-export default function DonorTabsLayout() {
-  return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: colors.brand.primary,
-        tabBarInactiveTintColor: colors.text.mutedForeground,
-        tabBarStyle: { borderTopColor: colors.surface.border },
-      }}
-    >
-      <Tabs.Screen
-        name="home"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, size }) => <Ionicons name="home-outline" size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="requests"
-        options={{
-          title: 'Requests',
-          tabBarIcon: ({ color, size }) => <Ionicons name="clipboard-outline" size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="donor-id"
-        options={{
-          title: 'Donor ID',
-          tabBarIcon: ({ color, size }) => <Ionicons name="qr-code-outline" size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ color, size }) => <Ionicons name="person-outline" size={size} color={color} />,
-        }}
-      />
-    </Tabs>
-  );
+/**
+ * Everything under (donor) — the tab bar plus every donor-only detail/utility
+ * screen (badges, donation-history, request-blood, etc.) — lives in this one
+ * Stack. The role guard lives one level up in the root layout, which mounts
+ * this entire subtree only for `role === 'donor'`; nesting every donor screen
+ * here (instead of loose at the app root) is what makes that guard cover them.
+ */
+export default function DonorLayout() {
+  return <Stack screenOptions={{ headerShown: false }} />;
 }

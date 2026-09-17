@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from 'expo-router';
 import { useState } from 'react';
@@ -5,6 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View } from 'react-native';
 
+import { AppLockupHeader } from '../../../../components/AppLockupHeader';
 import { AppText } from '../../../../components/AppText';
 import { Button } from '../../../../components/Button';
 import { ScreenContainer } from '../../../../components/ScreenContainer';
@@ -18,6 +20,7 @@ export function LoginScreen() {
   const { t } = useTranslation('auth');
   const setSignedIn = useAuthStore((state) => state.setSignedIn);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const {
     control,
     handleSubmit,
@@ -31,8 +34,12 @@ export function LoginScreen() {
     setSubmitError(null);
     try {
       const { uid } = await authService.signInWithEmail(email, password);
-      setSignedIn({ uid });
-      router.push('/(auth)/notifications');
+      // Facility accounts (hospital staff) — see PhoneEntryScreen's "Sign in
+      // with your facility ID" link. Skips the donor-only onboarding
+      // (notifications/biometric/profile-setup) since none of that applies
+      // to a hospital account. `role` is routing-only, per authStore.ts.
+      setSignedIn({ uid, role: 'hospital_staff' });
+      router.replace('/(hospital)/(tabs)/inventory');
     } catch {
       setSubmitError(t('otpVerify.errorInvalid'));
     }
@@ -40,6 +47,7 @@ export function LoginScreen() {
 
   return (
     <ScreenContainer>
+      <AppLockupHeader caption={t('login.brandCaption')} />
       <View style={styles.header}>
         <AppText variant="titleM">{t('login.title')}</AppText>
       </View>
@@ -62,15 +70,26 @@ export function LoginScreen() {
         control={control}
         name="password"
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextField
-            label={t('login.passwordPlaceholder')}
-            secureTextEntry
-            autoComplete="password"
-            value={value}
-            onChangeText={onChange}
-            onBlur={onBlur}
-            error={submitError ?? undefined}
-          />
+          <View>
+            <TextField
+              label={t('login.passwordPlaceholder')}
+              secureTextEntry={!passwordVisible}
+              autoComplete="password"
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              error={submitError ?? undefined}
+              style={styles.passwordInput}
+            />
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={passwordVisible ? 'Hide password' : 'Show password'}
+              onPress={() => setPasswordVisible((v) => !v)}
+              style={styles.eyeButton}
+            >
+              <Ionicons name={passwordVisible ? 'eye-off-outline' : 'eye-outline'} size={18} color={colors.text.mutedForeground} />
+            </Pressable>
+          </View>
         )}
       />
       <Button label={t('login.cta')} loading={isSubmitting} onPress={handleSubmit(onSubmit)} />
@@ -90,6 +109,15 @@ export function LoginScreen() {
 const styles = StyleSheet.create({
   header: {
     marginBottom: spacing.lg,
+  },
+  passwordInput: {
+    paddingRight: spacing['2xl'],
+  },
+  eyeButton: {
+    position: 'absolute',
+    right: spacing.sm,
+    top: 38,
+    padding: spacing['2xs'],
   },
   altLink: {
     marginTop: spacing.md,

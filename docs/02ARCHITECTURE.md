@@ -13,7 +13,7 @@
 | Layer          | Choice                                                                                                                                         | Why                                                                                                                              |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | App framework  | React Native + Expo (managed, EAS) + `react-native-web` for the web target                                                                     | One codebase for iOS/Android/Web; EAS Build/Submit is the fastest realistic path to store artifacts for a 2-person, 30-day team. |
-| Navigation     | React Navigation, role-based root navigator (donor / hospital / admin stacks)                                                                  | Standard, deep-link friendly.                                                                                                    |
+| Navigation     | Expo Router (file-based, on React Navigation), root `Stack.Protected` guards gating three mutually exclusive route groups: `(donor)` / `(hospital)` / `(admin)` — see `04-SECURITY.md` §11 | Deep-link friendly; the guard unmounts a whole role's screens from the navigator for any other role's session, not just hiding a tab. |
 | Server state   | TanStack Query                                                                                                                                 | Firestore listeners + async calls without Redux overhead.                                                                        |
 | Local/UI state | Zustand                                                                                                                                        | Lightweight, no boilerplate.                                                                                                     |
 | Forms          | React Hook Form + Zod resolver                                                                                                                 | Shared validation schema between client forms and Cloud Function input validation.                                               |
@@ -34,7 +34,9 @@ Exact pinned versions for all of the above: `DEPENDENCIES.md`.
                        ┌─────────────────────────────┐
                        │   VitalPulse Mobile (RN)     │
                        │  iOS · Android · Web (RNW)   │
-                       │  role-routed after login:    │
+                       │  role-routed after login     │
+                       │  (Stack.Protected, mutually  │
+                       │  exclusive route groups):    │
                        │   Donor · Hospital · Admin   │
                        └───────────────┬─────────────┘
                                         │ Firebase SDK (Auth, Firestore listeners)

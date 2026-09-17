@@ -40,7 +40,7 @@ export function ProfileSetupScreen() {
   const onSubmit = async () => {
     // Real submission (writing to `users/{uid}`) lands with the Home screen
     // group once the donor Home route exists — see plan's "out of scope" note.
-    router.replace('/(donor)/home');
+    router.replace('/(donor)/(tabs)/home');
   };
 
   return (

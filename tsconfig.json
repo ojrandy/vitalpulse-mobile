@@ -5,6 +5,11 @@
   },
   // functions/ and packages/* are separate Node/TS projects, each with
   // their own tsconfig.json and `npm run typecheck` — not part of the
-  // Expo/RN app's type-check.
-  "exclude": ["functions", "packages", "node_modules"]
+  // Expo/RN app's type-check. tests/rules/ is a third separate surface:
+  // Firestore rules tests, type-checked and run together via `npm run
+  // test:rules` (ts-jest, which compiles per-file regardless of this
+  // exclude list) rather than this app's own `tsc --noEmit` walk — jest
+  // globals (describe/test/beforeAll) aren't part of the RN app's own
+  // ambient types, only the root devDependency @types/jest's.
+  "exclude": ["functions", "packages", "node_modules", "tests"]
 }

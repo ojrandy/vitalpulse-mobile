@@ -11,7 +11,12 @@ interface OtpDigitInputProps {
 }
 
 /** Six separate boxed digits with auto-advance focus, matching the Figma OTP screen. */
-export function OtpDigitInput({ value, onChange, length = 6, hasError = false }: OtpDigitInputProps) {
+export function OtpDigitInput({
+  value,
+  onChange,
+  length = 6,
+  hasError = false,
+}: OtpDigitInputProps) {
   const inputs = useRef<(TextInput | null)[]>([]);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const digits = Array.from({ length }, (_, i) => value[i] ?? '');
@@ -40,7 +45,10 @@ export function OtpDigitInput({ value, onChange, length = 6, hasError = false }:
           ref={(el) => {
             inputs.current[index] = el;
           }}
-          style={[styles.box, (focusedIndex === index || hasError) && (hasError ? styles.boxError : styles.boxActive)]}
+          style={[
+            styles.box,
+            (focusedIndex === index || hasError) && (hasError ? styles.boxError : styles.boxActive),
+          ]}
           value={digit}
           onChangeText={(text) => setDigit(index, text)}
           onKeyPress={({ nativeEvent }) => onKeyPress(index, nativeEvent.key)}
@@ -66,7 +74,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: colors.surface.border,
     borderRadius: radii.xl,
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: '700',
     color: colors.text.foreground,
     backgroundColor: colors.surface.surface,

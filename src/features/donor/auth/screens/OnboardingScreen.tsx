@@ -6,7 +6,8 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { AppText } from '../../../../components/AppText';
 import { Button } from '../../../../components/Button';
 import { ScreenContainer } from '../../../../components/ScreenContainer';
-import { colors, elevation, radii, spacing } from '../../../../theme';
+import { WelcomeIllustration } from '../../../../components/illustrations/WelcomeIllustration';
+import { colors, radii, spacing } from '../../../../theme';
 
 export function OnboardingScreen() {
   const { t } = useTranslation('auth');
@@ -17,57 +18,57 @@ export function OnboardingScreen() {
     <ScreenContainer>
       <View style={styles.top}>
         <Pressable accessibilityRole="button" onPress={goToPhoneEntry}>
-          <AppText variant="bodyS" color={colors.text.mutedForeground}>
+          <AppText variant="bodyM" color={colors.text.mutedForeground}>
             {t('onboarding.skip')}
           </AppText>
         </Pressable>
       </View>
 
-      <View style={styles.illustrationWrap}>
-        <View style={styles.illustrationBackdrop}>
-          <View style={styles.illustrationInner}>
-            <View style={styles.illustrationCore}>
-              <Ionicons name="water" size={40} color={colors.surface.surface} />
+      <View style={styles.centerArea}>
+        <View style={styles.illustrationWrap}>
+          <WelcomeIllustration size={220} />
+          <View style={[styles.badge, styles.badgeBell]}>
+            <Ionicons name="notifications-outline" size={24} color={colors.text.foreground} />
+            <View style={styles.badgeDot}>
+              <AppText variant="caption" color={colors.surface.surface} style={styles.badgeDotText}>
+                1
+              </AppText>
             </View>
           </View>
-        </View>
-        <View style={[styles.badge, styles.badgeBell]}>
-          <Ionicons name="notifications-outline" size={24} color={colors.text.foreground} />
-          <View style={styles.badgeDot}>
-            <AppText variant="caption" color={colors.surface.surface} style={styles.badgeDotText}>
-              1
-            </AppText>
+          <View style={[styles.badge, styles.badgeLocation]}>
+            <Ionicons name="location-outline" size={24} color={colors.text.foreground} />
+          </View>
+          <View style={[styles.badge, styles.badgeShield]}>
+            <Ionicons name="shield-checkmark-outline" size={20} color={colors.status.success} />
           </View>
         </View>
-        <View style={[styles.badge, styles.badgeLocation]}>
-          <Ionicons name="location-outline" size={24} color={colors.text.foreground} />
-        </View>
-        <View style={[styles.badge, styles.badgeShield]}>
-          <Ionicons name="shield-checkmark-outline" size={20} color={colors.status.success} />
-        </View>
-      </View>
 
-      <AppText variant="titleM" style={styles.title}>
-        {t('onboarding.title')}
-      </AppText>
-      <AppText variant="bodyS" color={colors.text.mutedForeground} style={styles.subtitle}>
-        {t('onboarding.subtitle')}
-      </AppText>
-
-      <View style={styles.spacer} />
-
-      <View style={styles.dots}>
-        <View style={styles.dot} />
-        <View style={styles.dotActive} />
-        <View style={styles.dot} />
-      </View>
-
-      <Button label={t('onboarding.continue')} onPress={goToPhoneEntry} style={styles.continueButton} />
-      <Pressable accessibilityRole="button" onPress={goToPhoneEntry} style={styles.skipButton}>
-        <AppText variant="bodyM" color={colors.text.mutedForeground}>
-          {t('onboarding.skip')}
+        <AppText variant="displayL" style={styles.title}>
+          {t('onboarding.title')}
         </AppText>
-      </Pressable>
+        <AppText variant="bodyM" color={colors.text.mutedForeground} style={styles.subtitle}>
+          {t('onboarding.subtitle')}
+        </AppText>
+      </View>
+
+      <View style={styles.bottomArea}>
+        <View style={styles.dots}>
+          <View style={styles.dot} />
+          <View style={styles.dotActive} />
+          <View style={styles.dot} />
+        </View>
+
+        <Button
+          label={t('onboarding.continue')}
+          onPress={goToPhoneEntry}
+          style={styles.continueButton}
+        />
+        <Pressable accessibilityRole="button" onPress={goToPhoneEntry} style={styles.skipButton}>
+          <AppText variant="bodyM" color={colors.text.mutedForeground}>
+            {t('onboarding.skip')}
+          </AppText>
+        </Pressable>
+      </View>
     </ScreenContainer>
   );
 }
@@ -76,63 +77,43 @@ const styles = StyleSheet.create({
   top: {
     alignItems: 'flex-end',
   },
+  centerArea: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   illustrationWrap: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: spacing.xl,
-    marginBottom: spacing.lg,
-  },
-  illustrationBackdrop: {
-    width: 224,
-    height: 224,
-    borderRadius: radii.full,
-    backgroundColor: colors.brand.primarySoft,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  illustrationInner: {
-    width: 160,
-    height: 160,
-    borderRadius: radii.full,
-    backgroundColor: colors.surface.surface,
-    alignItems: 'center',
-    justifyContent: 'center',
-    ...elevation.card,
-  },
-  illustrationCore: {
-    width: 96,
-    height: 96,
-    borderRadius: radii['2xl'],
-    backgroundColor: colors.brand.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
-    ...elevation.raised,
+    marginBottom: spacing.xl,
   },
   badge: {
     position: 'absolute',
+    width: 56,
+    height: 56,
     backgroundColor: colors.surface.surface,
     borderRadius: radii.full,
     alignItems: 'center',
     justifyContent: 'center',
-    ...elevation.raised,
+    shadowColor: '#2f1c1c',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.16,
+    shadowRadius: 28,
+    elevation: 5,
   },
   badgeBell: {
-    width: 56,
-    height: 56,
     top: 4,
-    right: 12,
+    right: -4,
   },
   badgeLocation: {
-    width: 56,
-    height: 56,
-    left: 4,
+    left: -8,
     top: 130,
   },
   badgeShield: {
     width: 44,
     height: 44,
-    right: 24,
-    bottom: 10,
+    right: 8,
+    bottom: 4,
   },
   badgeDot: {
     position: 'absolute',
@@ -153,11 +134,11 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     textAlign: 'center',
-    marginTop: spacing.sm,
+    marginTop: spacing.md,
+    paddingHorizontal: spacing.sm,
   },
-  spacer: {
-    flex: 1,
-    minHeight: spacing.xl,
+  bottomArea: {
+    paddingBottom: spacing.sm,
   },
   dots: {
     flexDirection: 'row',

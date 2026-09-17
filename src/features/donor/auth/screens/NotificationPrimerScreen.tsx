@@ -1,5 +1,5 @@
+import Constants, { ExecutionEnvironment } from 'expo-constants';
 import { router } from 'expo-router';
-import * as Notifications from 'expo-notifications';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View } from 'react-native';
 
@@ -11,12 +11,29 @@ import { colors, elevation, radii, spacing } from '../../../../theme';
 
 const BENEFIT_KEYS = ['benefit1', 'benefit2', 'benefit3'] as const;
 
+/**
+ * `expo-notifications`' remote-push functionality was removed from Expo Go
+ * on Android starting SDK 53 — the native module throws as soon as it's
+ * imported there, not just when a push-specific API is called (Expo's own
+ * guidance: use a development build instead). A static top-level import
+ * would crash this screen for every Expo Go tester, so it's loaded
+ * dynamically and only outside Expo Go; inside Expo Go we skip straight to
+ * the next onboarding step instead of failing the whole screen.
+ */
+const isExpoGo = Constants.executionEnvironment === ExecutionEnvironment.StoreClient;
+
 export function NotificationPrimerScreen() {
   const { t } = useTranslation('auth');
 
   const goNext = () => router.push('/(auth)/biometric');
 
+  /** Clicking "Enable notifications" triggers the OS-level permission prompt via expo-notifications. */
   const onEnable = async () => {
+    if (isExpoGo) {
+      goNext();
+      return;
+    }
+    const Notifications = await import('expo-notifications');
     await Notifications.requestPermissionsAsync();
     goNext();
   };
@@ -25,22 +42,34 @@ export function NotificationPrimerScreen() {
     <ScreenContainer>
       <View style={styles.illustrationWrap}>
         <View style={styles.illustrationCore}>
-          <IconCircle name="notifications" size={96} iconSize={40} background="transparent" color={colors.surface.surface} />
+          <IconCircle
+            name="notifications"
+            size={120}
+            iconSize={52}
+            background="transparent"
+            color={colors.surface.surface}
+          />
         </View>
       </View>
 
-      <AppText variant="titleM" style={styles.title}>
+      <AppText variant="displayL" style={styles.title}>
         {t('notificationPrimer.title')}
       </AppText>
-      <AppText variant="bodyS" color={colors.text.mutedForeground} style={styles.subtitle}>
+      <AppText variant="bodyM" color={colors.text.mutedForeground} style={styles.subtitle}>
         {t('notificationPrimer.subtitle')}
       </AppText>
 
       <View style={styles.benefits}>
         {BENEFIT_KEYS.map((key) => (
           <View key={key} style={styles.benefitRow}>
-            <IconCircle name="checkmark" size={28} iconSize={14} background={colors.status.successSoft} color={colors.status.success} />
-            <AppText variant="bodyS" style={styles.benefitText}>
+            <IconCircle
+              name="checkmark"
+              size={32}
+              iconSize={16}
+              background={colors.status.successSoft}
+              color={colors.status.success}
+            />
+            <AppText variant="bodyM" style={styles.benefitText}>
               {t(`notificationPrimer.${key}`)}
             </AppText>
           </View>
@@ -51,7 +80,7 @@ export function NotificationPrimerScreen() {
 
       <Button label={t('notificationPrimer.cta')} onPress={onEnable} />
       <Pressable accessibilityRole="button" onPress={goNext} style={styles.skip}>
-        <AppText variant="bodyS" color={colors.text.mutedForeground}>
+        <AppText variant="bodyM" color={colors.text.mutedForeground}>
           {t('notificationPrimer.skip')}
         </AppText>
       </Pressable>
@@ -66,8 +95,8 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
   },
   illustrationCore: {
-    width: 96,
-    height: 96,
+    width: 120,
+    height: 120,
     borderRadius: radii['2xl'],
     backgroundColor: colors.brand.primary,
     alignItems: 'center',
@@ -79,11 +108,11 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     textAlign: 'center',
-    marginTop: spacing.sm,
+    marginTop: spacing.md,
   },
   benefits: {
     marginTop: spacing.xl,
-    gap: spacing.sm,
+    gap: spacing.md,
   },
   benefitRow: {
     flexDirection: 'row',

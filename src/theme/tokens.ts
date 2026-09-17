@@ -85,46 +85,52 @@ export const fontFamily = {
   bodyBold: 'Inter_700Bold',
 } as const;
 
-/** Font size / line height / letter spacing, taken directly from the Typography foundation card. */
+/**
+ * Font size / line height / letter spacing. Originally taken from the Figma
+ * Typography foundation card, then scaled up across the board — the Figma
+ * sizes were a starting reference, not a spec to match pixel-for-pixel, and
+ * they read too small once the app was actually running on a phone.
+ * Letter-spacing keeps the same spacing-to-size ratio the Figma tokens used.
+ */
 export const typeScale = {
   displayXl: {
     fontFamily: fontFamily.displayExtraBold,
-    fontSize: 40,
-    lineHeight: 44,
-    letterSpacing: -0.8,
+    fontSize: 44,
+    lineHeight: 48,
+    letterSpacing: -0.9,
   },
   displayL: {
     fontFamily: fontFamily.displayExtraBold,
-    fontSize: 30,
-    lineHeight: 34,
-    letterSpacing: -0.6,
+    fontSize: 34,
+    lineHeight: 40,
+    letterSpacing: -0.7,
   },
   titleM: {
     fontFamily: fontFamily.displayBold,
-    fontSize: 22,
-    lineHeight: 28,
-    letterSpacing: -0.44,
+    fontSize: 24,
+    lineHeight: 30,
+    letterSpacing: -0.48,
   },
   screenTitle: {
     fontFamily: fontFamily.displayBold,
-    fontSize: 17,
-    lineHeight: 22,
-    letterSpacing: -0.34,
+    fontSize: 19,
+    lineHeight: 24,
+    letterSpacing: -0.38,
   },
   sectionLabel: {
     fontFamily: fontFamily.displayBold,
-    fontSize: 13,
-    lineHeight: 19.5,
-    letterSpacing: 0.65,
+    fontSize: 14,
+    lineHeight: 21,
+    letterSpacing: 0.7,
     textTransform: 'uppercase' as const,
   },
-  bodyM: { fontFamily: fontFamily.bodyRegular, fontSize: 14, lineHeight: 20, letterSpacing: 0 },
-  bodyS: { fontFamily: fontFamily.bodyRegular, fontSize: 13, lineHeight: 19, letterSpacing: 0 },
-  caption: { fontFamily: fontFamily.bodyRegular, fontSize: 11, lineHeight: 16, letterSpacing: 0 },
+  bodyM: { fontFamily: fontFamily.bodyRegular, fontSize: 17, lineHeight: 24, letterSpacing: 0 },
+  bodyS: { fontFamily: fontFamily.bodyRegular, fontSize: 15, lineHeight: 21, letterSpacing: 0 },
+  caption: { fontFamily: fontFamily.bodyRegular, fontSize: 13, lineHeight: 18, letterSpacing: 0 },
   numeric: {
     fontFamily: fontFamily.displayExtraBold,
-    fontSize: 30,
-    lineHeight: 45,
-    letterSpacing: -0.6,
+    fontSize: 34,
+    lineHeight: 50,
+    letterSpacing: -0.7,
   },
 } as const;
